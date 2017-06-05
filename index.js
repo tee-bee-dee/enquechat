@@ -8,7 +8,6 @@ var Config = require('./config')
 var FB = require('./connectors/facebook')
 var Bot = require('./bot')
 
-
 // LETS MAKE A SERVER!
 var app = express()
 app.set('port', (process.env.PORT) || 5000)
