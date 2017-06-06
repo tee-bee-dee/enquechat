@@ -75,6 +75,17 @@ var actions = {
 		cb(context)
 	},
 
+	['checkAppt'](sessionId, context, cb) {
+    if(!context.datetime) {
+      context.missingDT = true
+    } else {
+      delete context.missingDT
+    }
+		cb(context)
+	},
+
+
+  /*
   ['checkAppt']({context,entities}) {
     return new Promise(function(resolve, reject) {
       if(!context.datetime) {
@@ -87,6 +98,7 @@ var actions = {
       return resolve(context);
   });
  },
+ */
   
   /*
   checkAppt(sessionId, context, entities, message, cb) {
@@ -116,7 +128,7 @@ var actions = {
 		cb(context)
 	},
 }
-*/
+  */
 
 // SETUP THE WIT.AI SERVICE
 var getWit = function () {
