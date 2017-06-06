@@ -37,16 +37,14 @@ var actions = {
 			FB.newMessage(context._fbid_, message)
 		}
 
-		
 		cb()
-		
 	},
 
-	merge(sessionId, context, entities, message, cb) {
-		// Reset the weather story
-		delete context.forecast
+	checkAppt(sessionId, context, entities, message, cb) {
+		// Reset the story
+		delete context.missingDT
 
-		// Retrive the location entity and store it in the context field
+		// Retrive the intent entity and store it in the context field
 		var loc = firstEntityValue(entities, 'location')
 		if (loc) {
 			context.loc = loc
@@ -143,22 +141,10 @@ var checkURL = function (url) {
 var allPics = {
   corgis: [
     'http://i.imgur.com/uYyICl0.jpeg',
-    'http://i.imgur.com/useIJl6.jpeg',
-    'http://i.imgur.com/LD242xr.jpeg',
-    'http://i.imgur.com/Q7vn2vS.jpeg',
-    'http://i.imgur.com/ZTmF9jm.jpeg',
-    'http://i.imgur.com/jJlWH6x.jpeg',
-		'http://i.imgur.com/ZYUakqg.jpeg',
 		'http://i.imgur.com/RxoU9o9.jpeg',
   ],
   racoons: [
     'http://i.imgur.com/zCC3npm.jpeg',
-    'http://i.imgur.com/OvxavBY.jpeg',
-    'http://i.imgur.com/Z6oAGRu.jpeg',
-		'http://i.imgur.com/uAlg8Hl.jpeg',
-		'http://i.imgur.com/q0O0xYm.jpeg',
-		'http://i.imgur.com/BrhxR5a.jpeg',
-		'http://i.imgur.com/05hlAWU.jpeg',
 		'http://i.imgur.com/HAeMnSq.jpeg',
   ],
   default: [
