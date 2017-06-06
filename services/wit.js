@@ -40,9 +40,10 @@ var actions = {
 		cb()
 	},
 
-	checkAppt(sessionId, context, entities, message, cb) {
+	//checkAppt(sessionId, context, entities, message, cb) {
+	merge(sessionId, context, entities, message, cb) {
 		// Reset the story
-		delete context.missingDT
+		delete context.forecast
 
 		// Retrive the intent entity and store it in the context field
 		var loc = firstEntityValue(entities, 'location')
