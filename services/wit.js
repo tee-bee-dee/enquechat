@@ -40,6 +40,7 @@ var actions = {
 		cb()
 	},
 
+  /*
 	merge(sessionId, context, entities, message, cb) {
 		// Reset the story
 		delete context.forecast
@@ -69,6 +70,7 @@ var actions = {
 
 		cb(context)
 	},
+  */
 
   checkAppt(sessionId, context, entities, message, cb) {
 		// Reset the story
