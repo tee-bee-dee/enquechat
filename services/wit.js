@@ -39,35 +39,9 @@ var actions = {
 		cb()
 	},
 
-  /*
-  */
 	merge(sessionId, context, entities, message, cb) {
-		cb(context)
-	},
-
-  checkAppt(sessionId, context, entities, message, cb) {
-		// Reset the story
-		delete context.missingDT
-
-		// Retrive the intent entity and store it in the context field
-		var apptact = firstEntityValue(entities, 'apptaction')
-		if (apptact) {
-			context.apptaction = apptact
-		}
-
-		// Retrieve the contact
-		var contact = firstEntityValue(entities, 'contact')
-		if (contact) {
-			context.contact = contact
-		}
-
-		// Retrieve the datetime
-		var datetime = firstEntityValue(entities, 'datetime')
-		if (datetime) {
-			context.datetime = datetime
-		} else {
-      context.missingDT = 1
-    }
+    //reset story
+    delete context.missingDT
 
 		cb(context)
 	},
@@ -100,7 +74,49 @@ var actions = {
 
 		cb(context)
 	},
+
+  ['checkAppt']({context,entities}) {
+    return new Promise(function(resolve, reject) {
+      if(!context.datetime) {
+        context.missingDT = true
+      } else {
+        delete context.missingDT
+      }
+      
+      //call the API here
+      return resolve(context);
+  });
+ },
+  
+  /*
+  checkAppt(sessionId, context, entities, message, cb) {
+		// Reset the story
+		delete context.missingDT
+
+		// Retrive the intent entity and store it in the context field
+		var apptact = firstEntityValue(entities, 'apptaction')
+		if (apptact) {
+			context.apptaction = apptact
+		}
+
+		// Retrieve the contact
+		var contact = firstEntityValue(entities, 'contact')
+		if (contact) {
+			context.contact = contact
+		}
+
+		// Retrieve the datetime
+		var datetime = firstEntityValue(entities, 'datetime')
+		if (datetime) {
+			context.datetime = datetime
+		} else {
+      context.missingDT = 1
+    }
+
+		cb(context)
+	},
 }
+*/
 
 // SETUP THE WIT.AI SERVICE
 var getWit = function () {
