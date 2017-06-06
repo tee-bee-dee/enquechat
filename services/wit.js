@@ -79,7 +79,7 @@ var actions = {
 		// Retrive the intent entity and store it in the context field
 		var apptact = firstEntityValue(entities, 'apptaction')
 		if (apptact) {
-			context.apptact = apptact
+			context.apptaction = apptact
 		}
 
 		// Retrieve the contact
