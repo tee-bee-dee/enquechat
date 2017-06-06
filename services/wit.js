@@ -40,7 +40,6 @@ var actions = {
 		cb()
 	},
 
-	//checkAppt(sessionId, context, entities, message, cb) {
 	merge(sessionId, context, entities, message, cb) {
 		// Reset the story
 		delete context.forecast
@@ -67,6 +66,33 @@ var actions = {
 		} else {
 			delete context.ack
 		}
+
+		cb(context)
+	},
+
+  checkAppt(sessionId, context, entities, message, cb) {
+		// Reset the story
+		delete context.missingDT
+
+		// Retrive the intent entity and store it in the context field
+		var apptact = firstEntityValue(entities, 'apptaction')
+		if (apptact) {
+			context.apptact = apptact
+		}
+
+		// Retrieve the contact
+		var contact = firstEntityValue(entities, 'contact')
+		if (contact) {
+			context.contact = contact
+		}
+
+		// Retrieve the datetime
+		var datetime = firstEntityValue(entities, 'datetime')
+		if (datetime) {
+			context.datetime = datetime
+		} else {
+      context.missingDT = 1
+    }
 
 		cb(context)
 	},
