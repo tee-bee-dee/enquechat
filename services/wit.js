@@ -5,7 +5,6 @@ var FB = require('../connectors/facebook')
 var Wit = require('node-wit').Wit
 var request = require('request')
 
-
 var firstEntityValue = function (entities, entity) {
 	var val = entities && entities[entity] &&
 		Array.isArray(entities[entity]) &&
@@ -41,36 +40,10 @@ var actions = {
 	},
 
   /*
+  */
 	merge(sessionId, context, entities, message, cb) {
-		// Reset the story
-		delete context.forecast
-
-		// Retrive the intent entity and store it in the context field
-		var loc = firstEntityValue(entities, 'location')
-		if (loc) {
-			context.loc = loc
-		}
-
-		// Reset the cutepics story
-		delete context.pics
-
-		// Retrieve the category
-		var category = firstEntityValue(entities, 'category')
-		if (category) {
-			context.cat = category
-		}
-
-		// Retrieve the sentiment
-		var sentiment = firstEntityValue(entities, 'sentiment')
-		if (sentiment) {
-			context.ack = sentiment === 'positive' ? 'Glad your liked it!' : 'Aww, that sucks.'
-		} else {
-			delete context.ack
-		}
-
 		cb(context)
 	},
-  */
 
   checkAppt(sessionId, context, entities, message, cb) {
 		// Reset the story
