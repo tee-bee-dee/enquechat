@@ -40,6 +40,9 @@ var actions = {
 	},
 
 	merge(sessionId, context, entities, message, cb) {
+    //delete story missing component for a refresh
+    delete context.missingDT;
+
 		cb(context)
 	},
 
