@@ -73,14 +73,6 @@ var actions = {
 	},
 
 	['checkAppt'](sessionId, context, cb) {
-    // Retrive the intent entity and store it in the context field
-    console.log("SEARCHING FOR VAR");
-    console.log(context.apptaction);
-		if (apptact) {
-      console.log("FOUND APPTACTION");
-			context.apptaction = apptact
-		}
-
     if(!context.datetime) {
       context.missingDT = true
     } else {
