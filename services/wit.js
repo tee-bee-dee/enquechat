@@ -73,10 +73,10 @@ var actions = {
 	},
 
 	['checkAppt'](sessionId, context, cb) {
-    if(!context.datetime) {
-      context.missingDT = true
-    } else {
+    if(context.datetime) {
       delete context.missingDT
+    } else {
+      context.missingDT = true
     }
 		cb(context)
 	},
