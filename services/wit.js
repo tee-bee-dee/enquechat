@@ -74,14 +74,27 @@ var actions = {
 
 	['checkAppt'](sessionId, context, cb) {
     if(context.datetime) {
+      console.log("datetime");
+      console.log(context.datetime);
       delete context.missingDT
     } else {
       context.missingDT = true
     }
-    console.log(context);
-    console.log(context.apptaction);
-    console.log(context.contact);
-    console.log(context.datetime);
+    if(context) {
+      console.log("context: ");
+      console.log(context);
+    }
+
+    if(context.apptaction) {
+      console.log("apptaction ");
+      console.log(context.apptaction);
+    }
+
+    if(context.contact) {
+      console.log("contact: ");
+      console.log(context.contact);
+    }
+
 		cb(context)
 	},
 }
