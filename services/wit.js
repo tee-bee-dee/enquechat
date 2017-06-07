@@ -78,6 +78,10 @@ var actions = {
     } else {
       context.missingDT = true
     }
+    console.log(context);
+    console.log(context.apptaction);
+    console.log(context.contact);
+    console.log(context.datetime);
 		cb(context)
 	},
 }
