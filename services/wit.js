@@ -76,7 +76,6 @@ var actions = {
 	},
 
 	['checkAppt'](sessionId, context, cb) {
-      console.log("checkAPPT");
     if(context.datetime) {
       console.log("datetime");
       console.log(context.datetime);
@@ -84,11 +83,13 @@ var actions = {
     } else {
       context.missingDT = true
     }
-    if(context) {
-      console.log("context: ");
-      console.log(context);
-    }
 
+    if(entities) {
+      console.log("STILL ENTITIES");
+      var apptact = firstEntityValue(entities, 'apptaction')
+    } else if(context.entities) {
+      console.log("CONSOLE ENTITIES");
+    }
     if(context.apptaction) {
       console.log("apptaction ");
       console.log(context.apptaction);
@@ -99,6 +100,10 @@ var actions = {
       console.log(context.contact);
     }
 
+    if(context) {
+      console.log("context: ");
+      console.log(context);
+    }
 		cb(context)
 	},
 }
