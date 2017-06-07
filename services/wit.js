@@ -84,10 +84,6 @@ var actions = {
       context.missingDT = true
     }
 
-    if(context.entities != null) {
-      console.log("CONSOLE ENTITIES");
-    } else
-      console.log("no console entities");
     if(context.apptaction) {
       console.log("apptaction ");
       console.log(context.apptaction);
@@ -104,6 +100,18 @@ var actions = {
     }
 		cb(context)
 	},
+
+  getDT({context, entities}) {
+    var dt = firstEntityValue(entities, 'datetime');
+    if (dt) {
+      context.datetime = dt;
+      delete context.missingDT;
+    } else {
+      context.missingDT = true;
+      delete context.datetime;
+    }
+    return context;
+  },
 }
 
 // SETUP THE WIT.AI SERVICE
