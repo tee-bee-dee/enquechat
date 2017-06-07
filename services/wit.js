@@ -84,12 +84,10 @@ var actions = {
       context.missingDT = true
     }
 
-    if(entities) {
-      console.log("STILL ENTITIES");
-      var apptact = firstEntityValue(entities, 'apptaction')
-    } else if(context.entities) {
+    if(context.entities != null) {
       console.log("CONSOLE ENTITIES");
-    }
+    } else
+      console.log("no console entities");
     if(context.apptaction) {
       console.log("apptaction ");
       console.log(context.apptaction);
