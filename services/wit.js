@@ -76,6 +76,7 @@ var actions = {
 	},
 
 	['checkAppt'](sessionId, context, cb) {
+      console.log("checkAPPT");
     if(context.datetime) {
       console.log("datetime");
       console.log(context.datetime);
