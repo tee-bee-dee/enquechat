@@ -100,6 +100,13 @@ var actions = {
 		cb(context)
 	},
 
+  
+	['clearContext'](sessionId, context, cb) {
+    context = {};
+
+    cb(context)
+	},
+
 	['checkAppt'](sessionId, context, cb) {
     if(context.datetime && context.apptaction && context.contact) {
       context.apptPossible = true;
