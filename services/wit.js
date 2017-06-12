@@ -42,6 +42,7 @@ var actions = {
 	merge(sessionId, context, entities, message, cb) {
     //delete story missing component for a refresh
     delete context.missingDT;
+    delete context.missingContact;
    
     // Retrive the intent entity and store it in the context field
 		var intent = firstEntityValue(entities, 'intent')
@@ -58,15 +59,22 @@ var actions = {
 		var contact = firstEntityValue(entities, 'contact')
 		if (contact) {
 			context.contact = contact
-		}
+      delete context.missingContact
+		} else {
+      context.missingContact = true
+    }
 
 		// Retrieve the datetime
 		var datetime = firstEntityValue(entities, 'datetime')
 		if (datetime) {
 			context.datetime = datetime
+      delete context.missingDT
 		} else {
       context.missingDT = true
     }
+
+    console.log("merge test")
+    console.log(context)
     
 		cb(context)
 	},
@@ -100,6 +108,10 @@ var actions = {
 		cb(context)
 	},
 
+  ['getContact'](sessionId, context, cb) {
+    cb(context)
+	},
+
   
 	['clearContext'](sessionId, context, cb) {
     var temp = context._fbid_
@@ -111,42 +123,35 @@ var actions = {
 	},
 
 	['checkAppt'](sessionId, context, cb) {
-    if(context.datetime && context.apptaction && context.contact) {
-      context.apptPossible = true;
-
-      console.log("apptaction check");
+    if(context.apptaction) {
       console.log(context.apptaction);
-
-      console.log("contact: check");
-      console.log(context.contact);
     }
 
     if(context.datetime) {
       console.log("datetime check");
       console.log(context.datetime);
+      delete context.missingDT
     } else {
       delete context.datetime;
       context.missingDT = true;
+    }
+
+    if(context.contact) {
+      console.log("contact check");
+      console.log(context.contact);
+      delete context.missingContact
+    } else {
+      delete context.contact;
+      context.missingContact = true;
     }
 
     if(context) {
       console.log("context: check");
       console.log(context);
     }
+
 		cb(context)
 	},
-
-  getDT({context, entities}) {
-    var dt = firstEntityValue(entities, 'datetime');
-    if (dt) {
-      context.datetime = dt;
-      delete context.missingDT;
-    } else {
-      context.missingDT = true;
-      delete context.datetime;
-    }
-    return context;
-  },
 }
 
 // SETUP THE WIT.AI SERVICE
