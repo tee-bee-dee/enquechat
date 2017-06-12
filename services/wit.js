@@ -41,6 +41,33 @@ var actions = {
 
 	merge(sessionId, context, entities, message, cb) {
     //delete story missing component for a refresh
+    delete context.missingDT;
+   
+    // Retrive the intent entity and store it in the context field
+		var intent = firstEntityValue(entities, 'intent')
+		if (intent) {
+			context.intent = intent
+    }
+
+		var apptact = firstEntityValue(entities, 'apptaction')
+		if (apptact) {
+			context.apptaction = apptact
+		}
+
+		// Retrieve the contact
+		var contact = firstEntityValue(entities, 'contact')
+		if (contact) {
+			context.contact = contact
+		}
+
+		// Retrieve the datetime
+		var datetime = firstEntityValue(entities, 'datetime')
+		if (datetime) {
+			context.datetime = datetime
+		} else {
+      context.missingDT = true
+    }
+    
 		cb(context)
 	},
 
@@ -74,27 +101,26 @@ var actions = {
 	},
 
 	['checkAppt'](sessionId, context, cb) {
-    if(context.datetime) {
-      console.log("datetime");
-      console.log(context.datetime);
-      context.missingDT = null;
-      delete context.missingDT
-    } else {
-      context.missingDT = true
-    }
+    if(context.datetime && context.apptaction && context.contact) {
+      context.apptPossible = true;
 
-    if(context.apptaction) {
-      console.log("apptaction ");
+      console.log("apptaction check");
       console.log(context.apptaction);
-    }
 
-    if(context.contact) {
-      console.log("contact: ");
+      console.log("contact: check");
       console.log(context.contact);
     }
 
+    if(context.datetime) {
+      console.log("datetime check");
+      console.log(context.datetime);
+    } else {
+      delete context.datetime;
+      context.missingDT = true;
+    }
+
     if(context) {
-      console.log("context: ");
+      console.log("context: check");
       console.log(context);
     }
 		cb(context)
@@ -104,11 +130,9 @@ var actions = {
     var dt = firstEntityValue(entities, 'datetime');
     if (dt) {
       context.datetime = dt;
-      context.missingDT = null;
       delete context.missingDT;
     } else {
       context.missingDT = true;
-      context.datetime = null;
       delete context.datetime;
     }
     return context;
