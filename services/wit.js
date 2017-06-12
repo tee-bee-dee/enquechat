@@ -119,7 +119,8 @@ var actions = {
 
     context._fbid_ = temp
 
-    cb(context)
+    cb()
+    return
 	},
 
 	['checkAppt'](sessionId, context, cb) {
