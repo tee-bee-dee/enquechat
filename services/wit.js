@@ -41,8 +41,6 @@ var actions = {
 
 	merge(sessionId, context, entities, message, cb) {
     //delete story missing component for a refresh
-    delete context.missingDT;
-
 		cb(context)
 	},
 
@@ -79,6 +77,7 @@ var actions = {
     if(context.datetime) {
       console.log("datetime");
       console.log(context.datetime);
+      context.missingDT = null;
       delete context.missingDT
     } else {
       context.missingDT = true
@@ -105,9 +104,11 @@ var actions = {
     var dt = firstEntityValue(entities, 'datetime');
     if (dt) {
       context.datetime = dt;
+      context.missingDT = null;
       delete context.missingDT;
     } else {
       context.missingDT = true;
+      context.datetime = null;
       delete context.datetime;
     }
     return context;
