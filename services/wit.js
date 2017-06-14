@@ -117,8 +117,8 @@ var actions = {
     var temp = context._fbid_
     context = {};
 
-    context._fbid_ = temp
-
+    if(temp != null)
+      context._fbid_ = temp
     cb(context)
 	},
 
