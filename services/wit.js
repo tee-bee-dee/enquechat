@@ -118,7 +118,7 @@ var actions = {
     context = {};
 
     if(temp != null)
-      context._fbid_ = temp
+      context._fbid_ = deleteSessionAndRemake(temp);
     cb(context)
 	},
 

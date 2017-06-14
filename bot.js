@@ -31,6 +31,17 @@ var findOrCreateSession = function (fbid) {
   return sessionId
 }
 
+var deleteSessionAndRemake = function(fbid) {
+  //If exists, delete it
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      sessions.splice(k, 1);
+    }
+  })
+
+  return findOrCreateSession(fbid);
+}
+
 var read = function (sender, message, reply) {
 		// Let's find the user
 		var sessionId = findOrCreateSession(sender)
@@ -65,4 +76,5 @@ var read = function (sender, message, reply) {
 module.exports = {
 	findOrCreateSession: findOrCreateSession,
 	read: read,
+  deleteSessionAndRemake: deleteSessionAndRemake,
 }
