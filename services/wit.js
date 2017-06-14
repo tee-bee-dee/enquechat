@@ -4,7 +4,6 @@ var Config = require('../config')
 var FB = require('../connectors/facebook')
 var Wit = require('node-wit').Wit
 var request = require('request')
-var sessID = require('../bot.js')
 
 var firstEntityValue = function (entities, entity) {
 	var val = entities && entities[entity] &&
@@ -119,7 +118,8 @@ var actions = {
     context = {};
 
     if(temp != null)
-      context._fbid_ = sessID.deleteSessionAndRemake(temp);
+      context._fbid_ = temp;
+
     cb(context)
 	},
 
